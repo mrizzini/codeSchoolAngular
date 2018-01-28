@@ -1,0 +1,22 @@
+{
+  "name": "angularcodeschol",
+  "version": "1.0.0",
+  "description": "code school practice lessons - angular",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrizzini/codeSchoolAngular.git"
+  },
+  "author": "Matt Rizzini",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrizzini/codeSchoolAngular/issues"
+  },
+  "homepage": "https://github.com/mrizzini/codeSchoolAngular#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
