@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mrizzini/codeSchoolAngular#readme",
   "dependencies": {
+    "angular": "^1.6.8",
     "express": "^4.16.2"
   }
 }

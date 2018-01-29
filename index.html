@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="store"> <!-- ng-app is a directive which runs this module when document is loaded -->
+    <!--A directive is a marker on a HTML tag that tell Angular to run or reference some JavaScript code-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Angular Code School</title>
+</head>
+<body ng-controller="StoreController as store"> <!--allows us to attach controller to the div element. ng-controller= directive. StoreController= Controller name. store = alias-->
+    <h1>CareerDevs Car Rental</h1> 
+    <!--<h2 ng-controller="StoreController"> </h2> this would tell Angular to run StoreController function-->
+    <!--Controllers are where we define our app's beahvior by defining functions and values-->
+    <div ng-repeat="cars in store.cars"> <!--this iterates through the carOptions array and displays all carOptions-->
+    <div ng-hide="cars.soldOut"> <!--will hide this div if soldOut is true-->
+        <h2>{{cars.name}}</h2>
+        <h3>{{cars.type}}</h3>
+        <h3>{{cars.price}}</h3>
+        <p>{{cars.description}}</p>
+        <button ng-show="cars.canRent"> Rent {{cars.name}}</button> <!--will show this button if canRent is true-->
+
+    
+        <!--<h2>{{store.cars.name}}</h2>-->
+        <!--<h3>{{store.cars.type}}</h3>-->
+        <!--<h3>{{store.cars.price}}</h3>-->
+        <!--<p>{{store.cars.description}}</p>-->
+        <!--<button ng-show="store.cars.canRent">Rent {{store.cars.name}}</button> <!--this button will show if canRent is true-->
+    </div>
+    </div>
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
