@@ -12,22 +12,53 @@
     <h1>CareerDevs Car Rental</h1> 
     <!--<h2 ng-controller="StoreController"> </h2> this would tell Angular to run StoreController function-->
     <!--Controllers are where we define our app's beahvior by defining functions and values-->
-    <div ng-repeat="cars in store.cars"> <!--this iterates through the carOptions array and displays all carOptions-->
-    <div ng-hide="cars.soldOut"> <!--will hide this div if soldOut is true-->
-        <h2>{{cars.name}}</h2>
-        <h3>{{cars.type}}</h3>
-        <h3>{{cars.price}}</h3>
-        <p>{{cars.description}}</p>
-        <button ng-show="cars.canRent"> Rent {{cars.name}}</button> <!--will show this button if canRent is true-->
-
     
-        <!--<h2>{{store.cars.name}}</h2>-->
-        <!--<h3>{{store.cars.type}}</h3>-->
-        <!--<h3>{{store.cars.price}}</h3>-->
-        <!--<p>{{store.cars.description}}</p>-->
-        <!--<button ng-show="store.cars.canRent">Rent {{store.cars.name}}</button> <!--this button will show if canRent is true-->
+    <div class="list-group">
+    <div class="list-group-item" ng-repeat="cars in store.cars"> <!--this iterates through the carOptions array and displays all carOptions-->
+    <div> <!--will hide this div if soldOut is true-->
+        <h2>
+            {{cars.name}}-
+            <em class="pull-right" ng-hide="cars.soldOut">{{cars.price | currency}}</em>
+        </h2>
+        <div class="gallery">
+        <img ng-src="{{cars.images[0]}}"/>
+        <br>
+        <br>
+        <div class="info">
+        <!--<h4>{{cars.type}}</h4>-->
+        <!--<p ng-hide="cars.soldOut">{{cars.description}}</p>-->
+        <!--<p><em ng-repeat="features in cars.features" ng-hide="cars.soldOut">Features: {{features}}</em></p>-->
+        <button ng-hide="cars.soldOut"> Rent {{cars.name}}</button> <!--will show this button if canRent is true-->
+        <button ng-show="cars.soldOut" class="btn btn-danger disabled" id="soldOutButton">{{cars.name}} is unavailable</button>
+        <br>
+        <br>
+    
     </div>
     </div>
+    </div>
+    
+    <section ng-init="tab = 1" ng-controller="PanelController as panel">
+        <ul class="nav nav-pills">
+            <li ng-class= "{ active: panel.isSelected(1) }"> <a href ng-click="panel.selectTab(1)"> Type | </a> </li>             
+            <li ng-class= "{ active: panel.isSelected(2) }"> <a href ng-click="panel.selectTab(2)"> Description | </a> </li>            
+            <li ng-class="{ active:  panel.isSelected(3) }"> <a href ng-click="panel.selectTab(3)"> Features </a> </li>            
+        </ul>
+        <br>
+        
+        <div class="panel" ng-show="panel.isSelected(1)">
+        <h4>{{cars.type}}</h4>
+        </div>
+        <div class="panel" ng-show="panel.isSelected(2)">
+        <p ng-hide="cars.soldOut">{{cars.description}}</p>
+        </div>
+        <div class="panel" ng-show="panel.isSelected(3)">
+        <p><em ng-repeat="features in cars.features" ng-hide="cars.soldOut">Features: {{features}}</em></p>
+        </div>
+    </section>
+    </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </body>
