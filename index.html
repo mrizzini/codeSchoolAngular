@@ -9,17 +9,13 @@
     <title>Angular Code School</title>
 </head>
 <body ng-controller="StoreController as store"> <!--allows us to attach controller to the div element. ng-controller= directive. StoreController= Controller name. store = alias-->
+    
     <h1>CareerDevs Car Rental</h1> 
     <!--<h2 ng-controller="StoreController"> </h2> this would tell Angular to run StoreController function-->
     <!--Controllers are where we define our app's beahvior by defining functions and values-->
-    
     <div class="list-group">
     <div class="list-group-item" ng-repeat="cars in store.cars"> <!--this iterates through the carOptions array and displays all carOptions-->
-    <div> <!--will hide this div if soldOut is true-->
-        <h2>
-            {{cars.name}}-
-            <em class="pull-right" ng-hide="cars.soldOut">{{cars.price | currency}}</em>
-        </h2>
+        <h2> {{cars.name}}- <em class="pull-right" ng-hide="cars.rented == cars.available">{{cars.price | currency}}</em></h2>
         <div class="gallery">
         <img ng-src="{{cars.images[0]}}"/>
         <br>
@@ -28,31 +24,32 @@
         <!--<h4>{{cars.type}}</h4>-->
         <!--<p ng-hide="cars.soldOut">{{cars.description}}</p>-->
         <!--<p><em ng-repeat="features in cars.features" ng-hide="cars.soldOut">Features: {{features}}</em></p>-->
-        <button ng-hide="cars.soldOut"> Rent {{cars.name}}</button> <!--will show this button if canRent is true-->
-        <button ng-show="cars.soldOut" class="btn btn-danger disabled" id="soldOutButton">{{cars.name}} is unavailable</button>
+        <button ng-controller="RentController as rentCtrl" ng-click="rentCtrl.rentCar(cars)" ng-hide="cars.rented == cars.available"> Rent {{cars.name}}</button> <!--will show this button if canRent is true-->
+        <button ng-show="cars.rented == cars.available" class="btn btn-danger disabled" id="soldOutButton">{{cars.name}} is unavailable</button>
         <br>
         <br>
-    
     </div>
     </div>
-    </div>
-    
+
     <section ng-init="tab = 1" ng-controller="PanelController as panel">
         <ul class="nav nav-pills">
             <li ng-class= "{ active: panel.isSelected(1) }"> <a href ng-click="panel.selectTab(1)"> Type | </a> </li>             
             <li ng-class= "{ active: panel.isSelected(2) }"> <a href ng-click="panel.selectTab(2)"> Description | </a> </li>            
-            <li ng-class="{ active:  panel.isSelected(3) }"> <a href ng-click="panel.selectTab(3)"> Features </a> </li>            
+            <li ng-class="{ active:  panel.isSelected(3) }"> <a href ng-click="panel.selectTab(3)"> Features |</a> </li> 
+            <li ng-class="{ active:  panel.isSelected(4) }"> <a href ng-click="panel.selectTab(4)"> Available </a> </li>            
         </ul>
         <br>
-        
         <div class="panel" ng-show="panel.isSelected(1)">
         <h4>{{cars.type}}</h4>
         </div>
-        <div class="panel" ng-show="panel.isSelected(2)">
+        <div class="panel" ng-show="panel.isSelected(2) && cars.rented != cars.available">
         <p ng-hide="cars.soldOut">{{cars.description}}</p>
         </div>
-        <div class="panel" ng-show="panel.isSelected(3)">
-        <p><em ng-repeat="features in cars.features" ng-hide="cars.soldOut">Features: {{features}}</em></p>
+        <div class="panel" ng-show="panel.isSelected(3) && cars.rented != cars.available">
+        <p><em ng-repeat="features in cars.features" ng-hide="cars.soldOut">{{features}}</em></p>
+        </div>
+        <div class="panel" ng-show="panel.isSelected(4)">
+        <p>There are {{cars.available - cars.rented}} {{cars.name}}'s available</p>
         </div>
     </section>
     </div>
